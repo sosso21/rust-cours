@@ -1,120 +1,70 @@
-#![deny(clippy::all)]
+#[derive(Debug)]
+struct Color(i32, i32, i32);
 
-/*
- * hello
-  ! hallo
-  // hello
-? hallo
-TODO : hallo
-*/
+#[derive(Debug)]
+struct Point(i32, i32, i32);
+
+#[derive(Debug)]
+struct User {
+    active: bool,
+    username: String,
+    email: String,
+    sign_in_count: u64,
+}
+
+#[derive(Debug)]
+struct Person<'a> {
+    name: &'a str,
+    age: u8,
+}
+
+impl User {
+    fn create(person: Person) -> User {
+        User {
+            active: false,
+            username: String::from(person.name),
+            email: String::from("myEmail@gmail.com"),
+            sign_in_count: 0,
+        }
+    }
+
+    // This method is used to introduce a user
+    fn introduction(&self) {
+        println!(
+            "Hello! My name is {} and My email is {}  .",
+            self.username, self.email
+        );
+    }
+}
+
 fn main() {
-    let name: &str = "sofiane";
-    let username: &str = "Gherab";
-    let letter: char = 'é';
+    let user1 = User {
+        email: String::from("someone@example.com"),
+        username: String::from("someusername123"),
+        active: true,
+        sign_in_count: 1,
+    };
 
-    let age: i32 = 24;
+    let black: Color = Color(0, 0, 0);
+    let origin: Point = Point(0, 0, 0);
+
+    let active = user1.active;
+    let email = user1.email;
+    let sign_in_count = user1.sign_in_count;
+
+    let name = "Moh";
+    let age = 27;
+    let moh = Person { name, age };
+
+    let moh_name = moh.name;
+    let moh_age = moh.age;
+
+    let change_user: User = User::create(moh);
+
+    change_user.introduction();
 
     println!(
-        "Hello, world! ; my name is {} {} and I have  {} years old  , my favorite char is  {} ",
-        name, username, age, letter
+        "black : {black:?}  origin : {origin:?}  , user1 : {} , active : {active} email : {email} sign_in_count : {sign_in_count} , moh : {moh_name} moh age {moh_age} ",
+        user1.username
     );
-
-    // ?  ============================================
-    // * COURs 2
-    // ?  ============================================
-
-    // ? les variables mutable
-    let mut number: u32 = 1;
-    number += 1; // TODO : on elui ajouter +1
-
-    // ? les pointeur
-    let first_number: u32 = number;
-    let first_number: u32 = first_number - 1;
-    print!(" my first number id : {} ", first_number);
-
-    // ? ============================================
-    // * Rust : 3 - Types des variables
-    // ?  ============================================
-
-    /*
-    * INTEGERS :
-          ?  we can use :
-                          i8 , i16 , i32 , i64 , i128
-                          u8 , u16 , u32 , u64 , u128
-                          iSize , uSize
-
-          ?  signification :
-                            *  i ->   ]-∞;+∞[
-                            *  u ->   ]0;+∞[
-                            * iSize -> array size ]-∞;+∞[
-                            * uSize -> array size ]0;+∞[
-
-     */
-    let int_number: i32 = 123;
-    let int_number_negative: i32 = -123;
-    let this_number_is_positive: u32 = 123;
-
-    print!(
-        "{} -  {} - {} ",
-        int_number, int_number_negative, this_number_is_positive
-    );
-
-    /*
-    * FLOAT :
-    ?  We can use :   f32 , f64
-     */
-    let pi1: f32 = 3.1415926;
-
-    /*
-     * BIOLEAN
-     */
-    let is_subscribe: bool = true;
-    let is_not_sub: bool = false;
-
-    /*
-     * CHAR
-     */
-    let my_char = 'à';
-
-    /*
-     * STRING
-     */
-    let my_string: &str = "hello word";
-
-    /*
-     * TUPLE
-     */
-    // let (first: i32 , second : i32 , third : i32 ) =( 1,2,3 );
-    let winner: (i32, i32, i32) = (1, 2, 3);
-    let (fst, snd, trd) = (1, 2, 3);
-    let the_fst = winner.0;
-
-    /*
-     * array
-     */
-    // let numbers_array: [u8; 5] = [0, 1, 2, 3, 4];
-    let numbers_array: [u8; 5] = [1; 5];
-    let array_length: usize = 4;
-    let _the_last_el_of_array: u8 = numbers_array[4];
-    // or
-    let _the_last_el_of_array_2: u8 = numbers_array[array_length];
-
-    /*
-    * PARSING
-
-     */
-
-    let my_number_string: &str = "21";
-
-    let _my_number_after_parsing = my_number_string
-        .parse::<i32>() // on peut s'arreter là
-        .expect("this is not a number"); // return an error of it's not number
-
-    // * PARSE Des type proches en eux
-    let array_2: [&str; 4] = ["hello"; 4];
-    let index: i32 = 1;
-    let index2: usize = index as usize;
-    print!("{}", array_2[index as usize])
-
-    //--
 }
