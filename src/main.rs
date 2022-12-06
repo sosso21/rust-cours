@@ -1,5 +1,8 @@
 trait HasArea {
     fn area(&self) -> f64;
+    fn double_area(&self) -> f64 {
+        self.area() * 2 as f64
+    }
 }
 
 struct Square {
@@ -15,7 +18,8 @@ impl HasArea for Square {
 
 fn print_area<T: HasArea>(square: T) {
     let area = square.area();
-    println!(" the area is {area} ")
+    let double = square.double_area();
+    println!(" the area is {area}  , and the double is :  {double} ")
 }
 
 fn main() {
