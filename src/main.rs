@@ -1,24 +1,7 @@
-#[derive(Debug)]
-enum CarKind {
-    Privet(String),
-    Company(String),
-}
-#[derive(Debug)]
-struct Car {
-    kind: CarKind,
-    color: String,
-    zero_retouch: bool,
-}
+mod user; // ref to file user.rs
+use user::UserModel; // ref to module
 
 fn main() {
-    let _privet_car = CarKind::Privet(String::from("sofiane"));
-    let car: Car = Car {
-        kind: CarKind::Company(String::from("Hermes")),
-        color: String::from("Nwar"),
-        zero_retouch: true,
-    };
-    println!(
-        "car kind : {:?}  , color {} , zero retouch {} ",
-        car.kind, car.color, car.zero_retouch
-    )
+    UserModel::Create::insert_and_hello(String::from("email@gmail.com"));
+    println!("Hello, world!");
 }
